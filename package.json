@@ -4,16 +4,19 @@
   "description": "event store to hold events for node projects",
   "main": "index.js",
   "scripts": {
-    "clean": "del *.d.ts && del *.js && del .\\src\\*.js && del .\\src\\*.d.ts",
+    "clean:win": "del *.d.ts && del *.js && del .\\src\\*.js && del .\\src\\*.d.ts",
+    "clean": "rm -f *.d.ts && rm -f *.js && rm -f ./src/*.js && rm -f ./src/*.d.ts",
+    "build:win": "npm run clean:win && tsc",
     "build": "npm run clean && tsc",
     "test": "jest",
-    "lint": "eslint . --ext .ts --fix --ignore-path .gitignore"
+    "test:cov": "c8 -r text -r json-summary xv",
+    "lint": "eslint . --ext .ts --fix"
   },
   "author": "Adam Goldsmith <anjgoldsmith88@gmail.com>",
   "license": "MIT",
-  "repository" : {
-    "type" : "git",
-    "url" : "https://github.com/AdamNJG/basiceventstore"
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/AdamNJG/basiceventstore"
   },
   "devDependencies": {
     "@types/node": "^18.7.18",
@@ -25,5 +28,8 @@
     "prettier": "^2.8.7",
     "ts-jest": "^29.0.0",
     "ts-node": "^10.9.1"
+  },
+  "dependencies": {
+    "tddtool": "file:../tddtool"
   }
 }
