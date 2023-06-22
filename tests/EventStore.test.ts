@@ -77,4 +77,23 @@ describe('EventStore Module', () => {
     expect(eventStore.next().value.payload).toBe(4);
     expect(eventStore.next().done).toBe(true);
   });
+
+  test('EventStore_addEventsAfterDone_shouldGetNewEvent', () =>{
+    const eventStore = new EventStore();
+
+    for (let i = 0; i < 5; i++) {
+      eventStore.addEvent('test', i);
+    }
+
+    let result = eventStore.next();
+    while (!result.done) {
+    // do something with result
+
+      result = eventStore.next();
+    }
+
+    eventStore.addEvent('test', 7);
+
+    expect(eventStore.next().value.payload).toBe(7);
+  });
 });
